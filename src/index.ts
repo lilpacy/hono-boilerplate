@@ -3,20 +3,9 @@ import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 import { cors } from "hono/cors";
 import routes from "./routes";
-// import { errorHandler, notFound } from './middlewares'
-// import {supabaseAnon, supabaseService} from './src/supabaseClient'
 
-type Bindings = {
-  MY_KV: KVNamespace;
-  PORT: string;
-};
-
-const port = 3000;
 // Initialize Hono app
-const app = new Hono<{ Bindings: Bindings }>().basePath("/api/v1");
-
-// Initialize middlewares
-app.use("*", logger(), prettyJSON());
+const app = new Hono().basePath("/api/v1");
 
 // Cors Middleware
 app.use(
@@ -27,13 +16,13 @@ app.use(
   })
 );
 
+// Initialize middlewares
+app.use("*", logger(), prettyJSON());
+
 // Welcome Route
 app.get("/", (c) => c.text("Hono Boilerplate"));
 
 // User Routes
 app.route("/", routes);
 
-export default {
-  port,
-  fetch: app.fetch,
-};
+export default app;
