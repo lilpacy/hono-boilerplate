@@ -3,7 +3,6 @@ import { logger } from "hono/logger";
 import { prettyJSON } from "hono/pretty-json";
 import { cors } from "hono/cors";
 import routes from "./routes";
-
 // Initialize Hono app
 const app = new Hono().basePath("/api/v1");
 
