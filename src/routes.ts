@@ -9,4 +9,8 @@ routes.get('/users', async (c) => {
     return c.json(users, 200);
 });
 
+routes.get('/test', async (c) => {
+    const test = await AuthController.getTest(c);
+    return c.json(test, 200);
+});
 export default routes

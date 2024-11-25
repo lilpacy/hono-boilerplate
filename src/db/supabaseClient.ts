@@ -1,17 +1,24 @@
-import { createClient } from '@supabase/supabase-js'
+import { createClient } from "@supabase/supabase-js";
+import { Context } from "hono";
 
-const supabaseUrl = process.env.SUPABASE_URL as string
-const supabaseKey = process.env.SUPABASE_ANON_KEY as string
-const serviceKey = process.env.SUPABASE_SERVICE_KEY as string
+const getSupabaseClient = (context: Context) => {
+  const supabaseUrl = context.env.SUPABASE_URL as string;
+  const supabaseKey = context.env.SUPABASE_ANON_KEY as string;
+  const serviceKey = context.env.SUPABASE_SERVICE_KEY as string;
 
-const supabaseService = createClient(supabaseUrl, serviceKey)
+  const supabaseService = createClient(supabaseUrl, serviceKey);
 
-const supabaseAnon = createClient(supabaseUrl, supabaseKey, {
+  const supabaseAnon = createClient(supabaseUrl, supabaseKey, {
     auth: {
-        autoRefreshToken: false,
-        persistSession: false,
-        detectSessionInUrl: false
-    }
-})
+      autoRefreshToken: false,
+      persistSession: false,
+      detectSessionInUrl: false,
+    },
+  });
 
-export { supabaseService, supabaseAnon }
+  return { supabaseAnon, supabaseService };
+};
+
+export type SupabaseClients = ReturnType<typeof getSupabaseClient>;
+
+export { getSupabaseClient };
