@@ -51,6 +51,7 @@ const register = async (c: Context) => {
 };
 
 const logout = async (c: Context) => {
+  await getSupabaseClient(c).supabaseAnon.auth.signOut();
   deleteCookie(c, "accessToken");
   deleteCookie(c, "refreshToken");
   return c.json({ message: "Logout successful" }, 200);
