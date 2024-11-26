@@ -10,7 +10,7 @@ export const setAuthCookies = (
     httpOnly: true,
     secure: c.env.STAGE === "production",
     sameSite: "Strict",
-    maxAge: 60, // 1 minute
+    maxAge: 60 * 60, // 1 hour
   });
 
   setCookie(c, "refreshToken", refreshToken, {
