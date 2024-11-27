@@ -1,7 +1,7 @@
 import { Context, Next } from "hono";
 import { getSupabaseClient } from "../db/supabaseClient";
 import { getCookie } from "hono/cookie";
-import { setAuthCookies } from "../helper";
+import { setAuthCookies } from "../helpers";
 
 export const authMiddleware = async (c: Context, next: Next) => {
   const { supabaseAnon, supabaseService } = getSupabaseClient(c);

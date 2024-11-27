@@ -1,7 +1,7 @@
 import { Context } from "hono";
 import { getSupabaseClient } from "../db/supabaseClient";
 import { deleteCookie } from "hono/cookie";
-import { setAuthCookies } from "../helper";
+import { setAuthCookies } from "../helpers";
 
 const login = async (c: Context) => {
   const { supabaseService } = getSupabaseClient(c);

@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { login, register, logout } from "./controllers/AuthController";
-import { authMiddleware } from "./middleware/authMiddleware";
+import { authMiddleware } from "./middlewares/authMiddleware";
 import { getCountries, getCountry } from "./controllers/CountryController";
 const routes = new Hono().basePath("/api/v1");
 // Auth routes
