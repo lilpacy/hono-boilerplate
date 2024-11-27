@@ -1,6 +1,6 @@
-# 🔥 Hono + ⚡️ Supabase Boilerplate 
+# 🔥 Hono + ⚡️ Supabase Boilerplate
 
-This project is a backend boilerplate built using the Hono framework. Cloudfare Workers are used to host the backend. It includes integration with Supabase and handles user authentication and authorization. 
+This project is a backend boilerplate built using the Hono framework. Cloudfare Workers are used to host the backend. It includes integration with Supabase and handles user authentication and authorization.
 
 ## Installation 🚀
 
@@ -13,10 +13,11 @@ bun install
 ## Configuration ✨
 
 Edit the `.wrangler.toml` file to include the necessary environment variables:
+
 ```sh
 # Supabase
 SUPABASE_URL=
-SUPABASE_SERVICE_KEY= 
+SUPABASE_SERVICE_KEY=
 SUPABASE_ANON_KEY=
 
 ```
@@ -62,4 +63,3 @@ bun run deploy
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-```
