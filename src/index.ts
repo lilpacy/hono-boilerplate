@@ -18,7 +18,7 @@ app.use(
 // Initialize middlewares
 app.use("*", logger(), prettyJSON());
 
-// Welcome Route
+// Default route
 app.get("/", (c) => c.text("Hono Boilerplate"));
 
 // User Routes
