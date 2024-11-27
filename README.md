@@ -15,6 +15,7 @@ bun install
 Edit the `.wrangler.toml` file to include the necessary environment variables:
 
 ```sh
+STAGE = "dev" # dev or prod
 # Supabase
 SUPABASE_URL=
 SUPABASE_SERVICE_KEY=
