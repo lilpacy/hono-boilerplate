@@ -1,0 +1,32 @@
+name = "hono-boilerplate"
+main = "./index.ts"
+compatibility_date = "2024-11-24"
+
+# compatibility_flags = [ "nodejs_compat" ]
+
+
+[vars]
+STAGE = "dev"
+SUPABASE_URL = "YOUR_SUPABASE_URL"
+SUPABASE_SERVICE_KEY = "YOUR_SUPABASE_SERVICE_KEY"
+SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY"
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "hono-boilerplate"
+# database_id = "cb25a0d9-0eaa-49b0-9cde-beff6b904e7f"
+
+# [ai]
+# binding = "AI"
+
+# [observability]
+# enabled = true
+# head_sampling_rate = 1
