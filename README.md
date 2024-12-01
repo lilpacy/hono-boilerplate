@@ -70,9 +70,9 @@ import { authMiddleware } from './middlewares/authMiddleware';
 
 router.get('/countries', authMiddleware, CountryController.index);
 ```
-1.Token Extraction: The middleware extracts the accessToken and refreshToken from the request cookies.
+#### Token Extraction: The middleware extracts the accessToken and refreshToken from the request cookies.
 
-2.Token Verification: 
+#### Token Verification: 
 * If the accessToken is expired but the refreshToken is valid, it requests a new accessToken using the refreshToken.
 * If both tokens are missing, it responds with an error.
 * If the accessToken is present, it verifies the token using Supabase's authentication service.
