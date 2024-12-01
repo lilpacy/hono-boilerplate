@@ -2,6 +2,20 @@
 
 This project is a backend boilerplate built using the Hono framework. Cloudfare Workers are used to host the backend. It includes integration with Supabase and handles user authentication and authorization.
 
+<p align="center">
+
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://github.com/goktugcy/hono-boilerplate/blob/main/LICENSE)
+
+![GitHub Created At](https://img.shields.io/github/created-at/goktugcy/hono-boilerplate)
+
+![GitHub Repo stars](https://img.shields.io/github/stars/goktugcy/hono-boilerplate?style=flat)
+
+![GitHub forks](https://img.shields.io/github/forks/goktugcy/hono-boilerplate?style=flat)
+
+</p>
+
 ## Installation 🚀
 
 After cloning the repository, install the necessary dependencies by running:
