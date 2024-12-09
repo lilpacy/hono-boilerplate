@@ -83,6 +83,64 @@ router.get('/countries', authMiddleware, CountryController.index);
 * If both tokens are missing, it responds with an error.
 * If the accessToken is present, it verifies the token using Supabase's authentication service.
 
+## Supabase Client Usage ⚡️
+
+The project uses two Supabase clients: `supabaseAnon` and `supabaseService`. These clients are created in the [`getSupabaseClient`](src/db/supabaseClient.ts) function in [src/db/supabaseClient.ts](src/db/supabaseClient.ts).
+
+### `supabaseAnon`
+
+The `supabaseAnon` client is used for operations that do not require elevated privileges. It is created using the anonymous key (`SUPABASE_ANON_KEY`) and is configured to not automatically refresh tokens, persist sessions, or detect sessions in URLs.
+
+Example usage:
+```ts
+import { getSupabaseClient } from "./src/db/supabaseClient";
+
+const getCountries = async (c: Context) => {
+  const { supabaseAnon } = getSupabaseClient(c);
+  let { data: countries, error } = await supabaseAnon.from("countries").select("*");
+
+  if (error) {
+    return c.json({ error: error.message }, 400);
+  }
+
+  return c.json(countries, 200);
+};
+```
+
+### `supabaseService`
+
+The `supabaseService` client is used for operations that require elevated privileges, such as authentication and user management. It is created using the service key (`SUPABASE_SERVICE_KEY`).
+
+Example usage:
+```ts
+import { getSupabaseClient } from "./src/db/supabaseClient";
+
+const login = async (c: Context) => {
+  const { supabaseService } = getSupabaseClient(c);
+  const { email, password } = await c.req.json<{ email: string; password: string }>();
+
+  const { data, error } = await supabaseService.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  if (error) {
+    return c.json({ error: error.message }, 400);
+  }
+
+  const accessToken = data.session?.access_token;
+  const refreshToken = data.session?.refresh_token;
+
+  if (!accessToken || !refreshToken) {
+    return c.json({ error: "Token creation failed" }, 500);
+  }
+
+  setAuthCookies(c, accessToken, refreshToken);
+
+  return c.json({ message: "Login successful", accessToken, refreshToken }, 200);
+};
+```
+
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
