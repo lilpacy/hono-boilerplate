@@ -1,31 +1,62 @@
 import { Context } from "hono";
-import { getSupabaseClient } from "../db/supabaseClient";
+import { createPrismaClient } from "../db/prismaClient";
+import { Country } from "@prisma/client";
 
 const getCountries = async (c: Context) => {
-  let { data: countries, error } = await getSupabaseClient(c)
-    .supabaseAnon.from("countries")
-    .select("id, name, iso2, iso3, local_name, continent");
-
-  if (error) {
-    return c.json({ error: error.message }, 400);
+  let prisma = null;
+  try {
+    prisma = await createPrismaClient(c.env.DATABASE_URL);
+    const countries: Country[] = await prisma.country.findMany({
+      select: {
+        id: true,
+        name: true,
+        iso2: true,
+        iso3: true,
+        localName: true,
+        continent: true,
+      },
+    });
+    return c.json(countries, 200);
+  } catch (error) {
+    console.error("Error fetching countries:", error);
+    return c.json({ error: "Failed to fetch countries" }, 400);
+  } finally {
+    if (prisma) {
+      await prisma.$disconnect();
+    }
   }
-
-  return c.json(countries, 200);
 };
 
 const getCountry = async (c: Context) => {
   const { id } = c.req.param();
-  let { data: country, error } = await getSupabaseClient(c)
-    .supabaseAnon.from("countries")
-    .select("id, name, iso2, iso3, local_name, continent")
-    .eq("id", id)
-    .single();
-
-  if (error) {
-    return c.json({ error: error.message }, 400);
+  let prisma = null;
+  try {
+    prisma = await createPrismaClient(c.env.DATABASE_URL);
+    const country: Country | null = await prisma.country.findUnique({
+      where: {
+        id: parseInt(id),
+      },
+      select: {
+        id: true,
+        name: true,
+        iso2: true,
+        iso3: true,
+        localName: true,
+        continent: true,
+      },
+    });
+    if (!country) {
+      return c.json({ error: "Country not found" }, 404);
+    }
+    return c.json(country, 200);
+  } catch (error) {
+    console.error("Error fetching country:", error);
+    return c.json({ error: "Failed to fetch country" }, 400);
+  } finally {
+    if (prisma) {
+      await prisma.$disconnect();
+    }
   }
-
-  return c.json(country, 200);
 };
 
 export { getCountries, getCountry };

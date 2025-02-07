@@ -13,7 +13,7 @@ This project is a backend boilerplate built using the Hono framework. Cloudfare 
 After cloning the repository, install the necessary dependencies by running:
 
 ```sh
-bun install
+npm install
 ```
 
 ## Configuration ✨
@@ -49,7 +49,7 @@ SUPABASE_ANON_KEY=
 ├── README.md
 ├── tsconfig.json
 ├── .gitignore
-├── bun.lockb
+├── package-lock.json
 
 ```
 
@@ -58,13 +58,13 @@ SUPABASE_ANON_KEY=
 To start the server, run:
 
 ```sh
-bun dev
+npm run dev
 ```
 
 Deploy the server to Cloudfare Workers by running:
 
 ```sh
-bun run deploy
+npm run deploy
 ```
 
 ## Authentication 🛡 
